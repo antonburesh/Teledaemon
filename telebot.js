@@ -1,6 +1,8 @@
 const request = require("request");
 
 function requestToTelebot(url, query) {
+    console.log("telebot: url & data", url, query);
+    console.log("telebot: json", JSON.stringify(query));
     return new Promise(function(resolve, reject) {
         request(
             {
