@@ -1,4 +1,5 @@
 const lineReader = require("line-reader");
+const iconv = require("iconv-lite");
 
 function parseFile(file) {
 	let result = new Promise(function(resolve, reject) {
@@ -7,7 +8,8 @@ function parseFile(file) {
 		let info = false;
 		let error = false;
 		let summary = false;
-		lineReader.eachLine(file, {encoding: 'utf8'}, function(line, last) {
+		lineReader.eachLine(file, {encoding: "binary"}, function(line, last) {
+			line = iconv.encode(iconv.decode(Buffer.from(line, 'binary'), 'cp1251'), 'utf8').toString();
 			// Fix the imput line: remove spases
 			line = line.trim();
 			line = line.split("  ").join(" ");
